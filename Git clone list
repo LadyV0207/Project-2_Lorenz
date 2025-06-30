@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# === Setup ===
+MAIN_REPO_URL="https://github.com/LadyV0207/Project-2_Lorenz"
+WORKDIR="./multi-fork-temp"
+mkdir -p $WORKDIR
+cd $WORKDIR
+
+# === Clone main repo ===
+git clone $MAIN_REPO_URL main-repo
+cd main-repo
+
+#!/bin/bash
+
+# === Setup ===
+MAIN_REPO_URL="https://github.com/your-username/your-main-repo.git"
+WORKDIR="./multi-source-collector"
+mkdir -p $WORKDIR
+cd $WORKDIR
+
+# === Clone main repo ===
+git clone $MAIN_REPO_URL main-repo
+cd main-repo
+
+# === Define source repositories and subdirectories ===
+declare -A repos
+repos["setup-node"]="https://github.com/actions/setup-node.git"
+repos["node-sqlite3"]="https://github.com/TryGhost/node-sqlite3.git"
+repos["sqlite"]="https://github.com/sqlite/sqlite.git"
+repos["xeus"]="https://github.com/jupyterlite/xeus.git"
+repos["toolkit-glob"]="https://github.com/actions/toolkit.git"
+repos["MachineLearningNotebooks"]="https://github.com/Azure/MachineLearningNotebooks.git"
+repos["cache"]="https://github.com/actions/cache.git"
+repos["cloudreve"]="https://github.com/cloudreve/cloudreve.git"
+repos["micropip"]="https://github.com/pyodide/micropip.git"
+repos["kafka"]="https://github.com/apache/kafka.git"
+repos["algorithms"]="https://github.com/keon/algorithms.git"
+repos["vega_datasets"]="https://github.com/altair-viz/vega_datasets.git"
+repos["vega-embed"]="https://github.com/vega/vega-embed.git"
+repos["scikit-learn"]="https://github.com/scikit-learn/scikit-learn.git"
+repos["vector"]="https://github.com/vectordotdev/vector.git"
+repos["pyodide-kernel"]="https://github.com/jupyterlite/pyodide-kernel.git"
+repos["jupyter-renderers"]="https://github.com/jupyterlab/jupyter-renderers.git"
+repos["pipenv"]="https://github.com/pypa/pipenv.git"
+repos["emscripten"]="https://github.com/emscripten-core/emscripten.git"
+repos["qiskit"]="https://github.com/Qiskit/qiskit.git"
+repos["fastapi"]="https://github.com/fastapi/fastapi.git"
+repos["nbgitpuller"]="https://github.com/jupyterhub/nbgitpuller.git"
+
+# === Fetch and extract subdirectories ===
+for repo_name in "${!repos[@]}"; do
+    remote_url="${repos[$repo_name]}"
+    git remote add "$repo_name" "$remote_url"
+    git fetch "$repo_name"
+
+    # Customize this path for each repo as needed
+    echo "✅ Fetched $repo_name. Now extracting desired 
